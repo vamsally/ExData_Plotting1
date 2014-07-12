@@ -1,5 +1,5 @@
-## Plot 1 Global Active Power
-## Frequency vs. Global Active Power (kilowatts)
+## Plot 2 
+## Global Active Power (kilowatts) vs. Days
 
 # set working directory
 setwd("/Users/sallylee/datasciencecoursera/ExData_Plotting1")
@@ -15,15 +15,17 @@ d1$Datef <- as.Date(d1$Date, format = "%d/%m/%Y")
 #subset date range wanted
 d1sub <- subset (d1, Datef >="2007-02-01" & Datef<="2007-02-02")
 
-#load library
+#create date time column for plot
+d1sub$Datetime <- strptime(paste(d1sub$Date,d1sub$Time), format ="%d/%m/%Y %H:%M:%S")
+
 library (datasets)
 
 # to create png file
-png(file = "plot1.png", width=480, height = 480)
+png(file = "plot2.png", width=480, height = 480)
 
-#create histogram
-hist (as.numeric(as.character(d1sub$Global_active_power)), col="red"
-      , main="Global Active Power", xlab="Global Active Power (kilowatts)")
+#create plot
+plot (d1sub$Datetime, as.numeric(as.character(d1sub$Global_active_power))
+      , type="l", ylab="Global Active Power (kilowatts)", xlab="")
 
 # turn off png device
 dev.off() 
